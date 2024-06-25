@@ -38,6 +38,7 @@ cd soteria-nudge-engine
 ## Directory Structure 
 The project directory should have the following structure:
 
+```sh
 soteria-nudge-engine/
 ├── Dockerfile
 ├── Dockerfile.init
@@ -49,6 +50,8 @@ soteria-nudge-engine/
 ├── insert_data.py
 ├── mongodb.Dockerfile
 └── requirements.txt
+```
+
 
 ## Confuguration
 Ensure the docker-compose.yml file is configured correctly. By default, it includes the necessary services and configurations for the nudge engine and MongoDB.
@@ -79,5 +82,7 @@ You should receive a response that looks like this :
 ```sh
 {"message":"Please ensure your safety equipment, like helmets and knee pads, are secured."}
 ```
+
+
 
 
