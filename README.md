@@ -1,35 +1,83 @@
-# FashionMnist
-Implemented the famous Fashion-MNIST classification on the dataset of Zalando's article images as part of AUEB Data Science Masters Programme.
+# Soteria Nudge Engine
 
-About Dataset
-Context
-Fashion-MNIST is a dataset of Zalando's article images—consisting of a training set of 60,000 examples and a test set of 10,000 examples. Each example is a 28x28 grayscale image, associated with a label from 10 classes. Zalando intends Fashion-MNIST to serve as a direct drop-in replacement for the original MNIST dataset for benchmarking machine learning algorithms. It shares the same image size and structure of training and testing splits.
+The Soteria Nudge Engine is a backend service designed to provide safety messages to users based on their mode of transport, time of day, location type, and weather conditions. It is built using FastAPI and MongoDB and runs inside Docker containers for easy deployment.
 
-The original MNIST dataset contains a lot of handwritten digits. Members of the AI/ML/Data Science community love this dataset and use it as a benchmark to validate their algorithms. In fact, MNIST is often the first dataset researchers try. "If it doesn't work on MNIST, it won't work at all", they said. "Well, if it does work on MNIST, it may still fail on others."
+## Technology Stack
 
-Zalando seeks to replace the original MNIST dataset
+### FastAPI
+FastAPI is a modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints. It is designed to be easy to use and fast to code with, making it ideal for creating robust and high-performance web APIs.
 
-Content
-Each image is 28 pixels in height and 28 pixels in width, for a total of 784 pixels in total. Each pixel has a single pixel-value associated with it, indicating the lightness or darkness of that pixel, with higher numbers meaning darker. This pixel-value is an integer between 0 and 255. The training and test data sets have 785 columns. The first column consists of the class labels (see above), and represents the article of clothing. The rest of the columns contain the pixel-values of the associated image.
+### MongoDB
+MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas. It is known for its high performance, high availability, and easy scalability.
 
-About the dataset labels 
+### Docker
+Docker is an open platform for developing, shipping, and running applications. Docker enables you to separate your applications from your infrastructure so you can deliver software quickly. With Docker, you can manage your infrastructure in the same ways you manage your applications.
 
-Each training and test example is assigned to one of the following labels:
+## Features
 
-0 T-shirt/top
-1 Trouser
-2 Pullover
-3 Dress
-4 Coat
-5 Sandal
-6 Shirt
-7 Sneaker
-8 Bag
-9 Ankle boot
+- Provides safety messages to users based on various conditions
+- Uses FastAPI for the backend
+- Uses MongoDB for data storage
+- Containerized using Docker for easy setup and deployment
 
+## Requirements
 
-Acknowledgements
-Original dataset was downloaded from https://github.com/zalandoresearch/fashion-mnist
+- Docker
+- Docker Compose
 
-Dataset was converted to CSV with this script: https://pjreddie.com/projects/mnist-in-csv/
+## Setup and Installation
+
+### Clone the Repository
+
+```sh
+git clone https://github.com/yourusername/soteria-nudge-engine.git
+cd soteria-nudge-engine
+
+```
+
+## Directory Structure 
+The project directory should have the following structure:
+
+soteria-nudge-engine/
+├── Dockerfile
+├── Dockerfile.init
+├── README.md
+├── app/
+│   ├── main.py
+│   └── ... (other application files)
+├── docker-compose.yml
+├── insert_data.py
+├── mongodb.Dockerfile
+└── requirements.txt
+
+## Confuguration
+Ensure the docker-compose.yml file is configured correctly. By default, it includes the necessary services and configurations for the nudge engine and MongoDB.
+
+## Build and Run the Containers
+Build and run the Docker containers using Docker Compose:
+
+```sh
+docker-compose up --build
+```
+
+This command will:
+
+- Build the Docker images for the MongoDB service, the nudge engine service, and the data initialization service.
+- Start the MongoDB container and the nudge engine container.
+- Run the insert_data.py script to populate the MongoDB database with initial data.
+
+## API Endpoints
+
+- The nudge engine API runs on port 8000
+- Exmaple endpoint to get a response :
+
+```sh
+curl -X POST "http://localhost:8000/api/v1/message" -H "Content-Type: application/json" -d "{\"userId\": \"user123\", \"tripStatus\": \"pre-trip\", \"location\": {}, \"speed\": 10, \"userProfile\": {\"primaryTransportMode\": \"bike\"}}"
+```
+
+You should receive a response that looks like this :
+```sh
+{"message":"Please ensure your safety equipment, like helmets and knee pads, are secured."}
+```
+
 
